@@ -21,6 +21,8 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:30.1.1-jre'
+    implementation 'info.picocli:picocli:4.6.2'
+    annotationProcessor 'info.picocli:picocli-codegen:4.6.2'
 }
 
 testing {
@@ -40,6 +42,7 @@ application {
 
 compileJava {
     options.release = 16
+    options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
 }
 
 
