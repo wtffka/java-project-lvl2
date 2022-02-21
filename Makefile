@@ -10,7 +10,12 @@ check-updates:
 	./gradlew dependencyUpdates
 
 lint:
-	./gradlew checkstyleMain checkstyleTest
+	./gradlew checkstyleMain
 
-Build:
+test:
+	./gradlew test
+
+build:
 	./gradlew clean build
+
+.PHONY: build
