@@ -5,3 +5,8 @@
 ASCIINEMA: Step 5
 
 https://asciinema.org/a/jmjOhPUt4yKthhzNlNpWCsKmh
+
+ASCIINEMA: Step 7
+
+https://asciinema.org/a/pzrsxCv00xppBRWnu5P7LmFWy
+
