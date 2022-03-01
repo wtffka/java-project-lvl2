@@ -18,9 +18,8 @@ public class Parser {
     public static Map<String, Object> getData(String filepath) throws IOException {
         ObjectMapper objectMapper = MapperFactory.getMapper(filepath);
         String content = new String(Files.readAllBytes(Paths.get(filepath)));
-        Map<String, Object> map = objectMapper.readValue(content, new TypeReference<Map<String, Object>>() {
+        return objectMapper.readValue(content, new TypeReference<>() {
         });
-        return map;
     }
 
 }
