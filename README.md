@@ -10,3 +10,8 @@ ASCIINEMA: Step 7
 
 https://asciinema.org/a/pzrsxCv00xppBRWnu5P7LmFWy
 
+ASCIINEMA: Step 8
+
+https://asciinema.org/a/YRLvtezUzOkuADz5lMNIcGxAP
+
+
