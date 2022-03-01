@@ -31,6 +31,4 @@ class App implements Callable<Integer> {
         System.out.println(diff);
         return 0;
     }
-
-
 }
