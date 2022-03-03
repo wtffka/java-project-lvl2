@@ -14,4 +14,7 @@ ASCIINEMA: Step 8
 
 https://asciinema.org/a/YRLvtezUzOkuADz5lMNIcGxAP
 
+ASCIINEMA: Step 9
+
+https://asciinema.org/a/76T7rl4oaRB6q4gmTKuUe7OLV
 
