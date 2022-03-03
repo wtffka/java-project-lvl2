@@ -11,7 +11,7 @@ public class Differ {
 
     private static final String WHITESPACE = " ";
 
-    public static String genDiff(Map<String, Object> map1, Map<String, Object> map2) {
+    public static String genDiff(Map<String, Object> map1, Map<String, Object> map2, String formatName) {
         List<Map.Entry<String, Object>> entries = new ArrayList<>();
         for (Map.Entry s : map1.entrySet()) {
 
@@ -57,7 +57,6 @@ public class Differ {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
 
-        return Formatter.formatter(sortedMap);
+        return Formatter.chooseFormat(formatName, sortedMap);
     }
 }
-

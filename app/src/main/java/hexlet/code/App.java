@@ -17,6 +17,9 @@ class App implements Callable<Integer> {
     @Parameters(description = "path to second file")
     private String filepath2;
 
+    @Parameters(description = "choose format you want")
+    private String formatName;
+
     @Option(names = {"-f", "--format "}, defaultValue = "stylish", description = "output format [default: stylish]")
     private String format;
 
@@ -27,7 +30,7 @@ class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        String diff = Parser.generate(filepath1, filepath2);
+        String diff = Parser.generate(filepath1, filepath2, formatName);
         System.out.println(diff);
         return 0;
     }

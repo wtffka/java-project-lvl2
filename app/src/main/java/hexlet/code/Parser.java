@@ -9,10 +9,10 @@ import java.util.Map;
 
 public class Parser {
 
-    public static String generate(String filepath1, String filepath2) throws IOException {
+    public static String generate(String filepath1, String filepath2, String formatName) throws IOException {
         Map<String, Object> firstFileToMap = getData(filepath1);
         Map<String, Object> secondFileToMap = getData(filepath2);
-        return Differ.genDiff(firstFileToMap, secondFileToMap);
+        return Differ.genDiff(firstFileToMap, secondFileToMap, formatName);
     }
 
     public static Map<String, Object> getData(String filepath) throws IOException {

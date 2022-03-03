@@ -1,7 +1,5 @@
 package app;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import hexlet.code.Differ;
 import hexlet.code.Parser;
 import org.junit.jupiter.api.Test;
@@ -17,6 +15,9 @@ class AppTest {
                 "/home/wtffka/java-project-lvl2/app/src/test/resources/file1.json");
         Map<String, Object> secondJsonFile = Parser.getData(
                 "/home/wtffka/java-project-lvl2/app/src/test/resources/file2.json");
+
+        String formatName = "stylish";
+
         String expectedString = "{\n"
                 + "\t   chars1: [a, b, c]\n"
                 + "\t - chars2: [d, e, f]\n"
@@ -42,20 +43,20 @@ class AppTest {
                 + "\t - setting3: true\n"
                 + "\t + setting3: none\n"
                 + "}";
-        String result = Differ.genDiff(firstJsonFile, secondJsonFile);
+        String result = Differ.genDiff(firstJsonFile, secondJsonFile, formatName);
         assertThat(result).isEqualTo(expectedString);
 
     }
 
     @Test
     void testGenDiffYAML() throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
 
         Map<String, Object> map1 = Parser.getData(
                 "/home/wtffka/java-project-lvl2/app/src/test/resources/file1.yml");
         Map<String, Object> map2 = Parser.getData(
                 "/home/wtffka/java-project-lvl2/app/src/test/resources/file2.yml");
 
+        String formatName = "";
 
         String expectedString = "{\n"
                 + "\t - follow: false\n"
@@ -66,9 +67,36 @@ class AppTest {
                 + "\t + verbose: true\n"
                 + "}";
 
-        String result = Differ.genDiff(map1, map2);
+        String result = Differ.genDiff(map1, map2, formatName);
         assertThat(result).isEqualTo(expectedString);
 
+    }
+
+    @Test
+    void testPlainFormatJSON() throws IOException {
+        Map<String, Object> map1 = Parser.getData(
+                "/home/wtffka/java-project-lvl2/app/src/test/resources/file1.json");
+        Map<String, Object> map2 = Parser.getData(
+                "/home/wtffka/java-project-lvl2/app/src/test/resources/file2.json");
+
+        String formatName = "plain";
+
+        String expectedString = "Property 'chars2' was updated. From [complex value] to false\n"
+                + "Property 'checked' was updated. From false to true\n"
+                + "Property 'default' was updated. From null to [complex value]\n"
+                + "Property 'id' was updated. From 45 to null\n"
+                + "Property 'key1' was removed\n"
+                + "Property 'key2' was added with value: 'value2'\n"
+                + "Property 'numbers2' was updated. From [complex value] to [complex value]\n"
+                + "Property 'numbers3' was removed\n"
+                + "Property 'numbers4' was added with value: [complex value]\n"
+                + "Property 'obj1' was added with value: [complex value]\n"
+                + "Property 'setting1' was updated. From 'Some value' to 'Another value'\n"
+                + "Property 'setting2' was updated. From 200 to 300\n"
+                + "Property 'setting3' was updated. From true to 'none'\n";
+
+        String result = Differ.genDiff(map1, map2, formatName);
+        assertThat(result).isEqualTo(expectedString);
     }
 
 }
