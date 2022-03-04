@@ -18,3 +18,8 @@ ASCIINEMA: Step 9
 
 https://asciinema.org/a/76T7rl4oaRB6q4gmTKuUe7OLV
 
+ASCIINEMA: Step10
+
+https://asciinema.org/a/SZN0qE041ycSRcNIGPAZn7rxk
+
+

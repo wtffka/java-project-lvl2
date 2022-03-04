@@ -56,7 +56,6 @@ public class Differ {
         for (Map.Entry<String, Object> entry : entries) {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
-
         return Formatter.chooseFormat(formatName, sortedMap);
     }
 }
