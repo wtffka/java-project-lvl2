@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import java.io.IOException;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Map;
@@ -57,5 +58,11 @@ public class Differ {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
         return Formatter.chooseFormat(formatName, sortedMap);
+    }
+
+    public static String generate(String filepath1, String filepath2, String formatName) throws IOException {
+        Map<String, Object> firstFileToMap = Parser.getData(filepath1);
+        Map<String, Object> secondFileToMap = Parser.getData(filepath2);
+        return Differ.genDiff(firstFileToMap, secondFileToMap, formatName);
     }
 }
