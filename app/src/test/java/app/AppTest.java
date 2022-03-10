@@ -16,8 +16,6 @@ class AppTest {
         Map<String, Object> secondJsonFile = Parser.getData(
                 "/home/wtffka/java-project-lvl2/app/src/test/resources/file2.json");
 
-        String formatName = "stylish";
-
         String expectedString = "{\n"
                 + "\t   chars1: [a, b, c]\n"
                 + "\t - chars2: [d, e, f]\n"
@@ -43,7 +41,7 @@ class AppTest {
                 + "\t - setting3: true\n"
                 + "\t + setting3: none\n"
                 + "}";
-        String result = Differ.genDiff(firstJsonFile, secondJsonFile, formatName);
+        String result = Differ.genDiff(firstJsonFile, secondJsonFile);
         assertThat(result).isEqualTo(expectedString);
 
     }
@@ -56,8 +54,6 @@ class AppTest {
         Map<String, Object> map2 = Parser.getData(
                 "/home/wtffka/java-project-lvl2/app/src/test/resources/file2.yml");
 
-        String formatName = "";
-
         String expectedString = "{\n"
                 + "\t - follow: false\n"
                 + "\t   host: hexlet.io\n"
@@ -67,7 +63,7 @@ class AppTest {
                 + "\t + verbose: true\n"
                 + "}";
 
-        String result = Differ.genDiff(map1, map2, formatName);
+        String result = Differ.genDiff(map1, map2);
         assertThat(result).isEqualTo(expectedString);
 
     }

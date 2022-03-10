@@ -12,7 +12,7 @@ public class Differ {
 
     private static final String WHITESPACE = " ";
 
-    public static String genDiff(Map<String, Object> map1, Map<String, Object> map2, String formatName) {
+    public static String genDiff(Map<String, Object> map1, Map<String, Object> map2, String... formatName) {
         List<Map.Entry<String, Object>> entries = new ArrayList<>();
         for (Map.Entry s : map1.entrySet()) {
 
@@ -57,12 +57,13 @@ public class Differ {
         for (Map.Entry<String, Object> entry : entries) {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
-        return Formatter.chooseFormat(formatName, sortedMap);
+        return Formatter.chooseFormat(sortedMap, formatName);
     }
 
-    public static String generate(String filepath1, String filepath2, String formatName) throws IOException {
+    public static String generate(String filepath1, String filepath2, String... formatName) throws IOException {
         Map<String, Object> firstFileToMap = Parser.getData(filepath1);
         Map<String, Object> secondFileToMap = Parser.getData(filepath2);
         return Differ.genDiff(firstFileToMap, secondFileToMap, formatName);
     }
+
 }
