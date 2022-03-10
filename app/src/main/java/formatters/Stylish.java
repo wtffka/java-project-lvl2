@@ -4,8 +4,8 @@ import java.util.Map;
 
 public class Stylish {
     private static final String WHITESPACE = " ";
-    private static final int AMOUNTOFWHITESPACES = 4;
-    private static final int AMOUNTOFWHITESPACESIFKEYSTARTSWITHWHITESPACE = 7;
+    private static final int AMOUNTOFWHITESPACES = 1;
+    private static final int AMOUNTOFWHITESPACESIFKEYSTARTSWITHWHITESPACE = 4;
 
     public static String formatter(Map<String, Object> sortedMap) {
         StringBuilder builder = new StringBuilder("{\n");
