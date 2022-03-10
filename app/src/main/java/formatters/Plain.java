@@ -26,7 +26,7 @@ public class Plain {
                         + entry.getValue() + "\n");
             }
         }
-        return builder.toString();
+        return builder.toString().trim();
     }
 
     public static Map<String, Object> changeSomeValuesInMap(Map<String, Object> mapToChange) {

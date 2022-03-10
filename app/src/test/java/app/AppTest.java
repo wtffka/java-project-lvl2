@@ -91,7 +91,7 @@ class AppTest {
                 + "Property 'obj1' was added with value: [complex value]\n"
                 + "Property 'setting1' was updated. From 'Some value' to 'Another value'\n"
                 + "Property 'setting2' was updated. From 200 to 300\n"
-                + "Property 'setting3' was updated. From true to 'none'\n";
+                + "Property 'setting3' was updated. From true to 'none'";
 
         String result = Differ.genDiff(map1, map2, formatName);
         assertThat(result).isEqualTo(expectedString);
