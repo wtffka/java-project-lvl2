@@ -15,6 +15,10 @@ lint:
 test:
 	./gradlew test
 
+run:
+	./gradlew clean
+	./gradlew run
+
 build:
 	./gradlew clean build
 
