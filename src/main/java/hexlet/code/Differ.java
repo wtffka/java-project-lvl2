@@ -39,15 +39,25 @@ public class Differ {
         return allDifferences;
     }
 
-    public static String generate(String filepath1, String filepath2, String... formatName) throws IOException {
+    public static String generate(String filepath1, String filepath2, String formatName) throws IOException {
         Map<String, Object> firstFileToMap = Parser.getData(filepath1);
         Map<String, Object> secondFileToMap = Parser.getData(filepath2);
 
         List<Tree> diffTree = genDiff(firstFileToMap, secondFileToMap);
 
-        return Formatter.chooseFormat(diffTree, formatName);
+        return Formatter.format(diffTree, formatName);
     }
 
+    public static String generate(String filepath1, String filepath2) throws IOException {
+        Map<String, Object> firstFileToMap = Parser.getData(filepath1);
+        Map<String, Object> secondFileToMap = Parser.getData(filepath2);
+
+        String formatName = "stylish";
+
+        List<Tree> diffTree = genDiff(firstFileToMap, secondFileToMap);
+
+        return Formatter.format(diffTree, formatName);
+    }
     public static String getStringFromFile(String filepath) throws IOException {
         return new String(Files.readAllBytes(Paths.get(filepath)));
     }

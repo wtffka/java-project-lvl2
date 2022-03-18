@@ -5,15 +5,14 @@ import hexlet.code.formatters.JSON;
 import hexlet.code.formatters.Plain;
 import hexlet.code.formatters.Stylish;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Formatter {
 
-    public static String chooseFormat(List<Tree> diffTree, String... formatName) throws JsonProcessingException {
-        if (Arrays.toString(formatName).contains("plain")) {
+    public static String format(List<Tree> diffTree, String formatName) throws JsonProcessingException {
+        if (formatName.equals("plain")) {
             return Plain.plainFormatter(diffTree);
-        } else if (Arrays.toString(formatName).contains("json")) {
+        } else if (formatName.equals("json")) {
             return JSON.jsonFormatter(diffTree);
         }
         return Stylish.formatter(diffTree);
