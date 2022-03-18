@@ -1,20 +1,21 @@
 package app;
 
 import hexlet.code.Differ;
-import hexlet.code.Parser;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
-import java.util.Map;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 class AppTest {
     @Test
     void testGenDiffJSON() throws IOException {
-        Map<String, Object> firstJsonFile = Parser.getData(
-                "/home/wtffka/java-project-lvl2/src/test/resources/file1.json");
-        Map<String, Object> secondJsonFile = Parser.getData(
-                "/home/wtffka/java-project-lvl2/src/test/resources/file2.json");
+
+        String filepath1 = ("/home/wtffka/java-project-lvl2/src/test/resources/file1.json");
+        String filepath2 = ("/home/wtffka/java-project-lvl2/src/test/resources/file2.json");
+
+        String formatName = "stylish";
 
         String expectedString = "{\n"
                 + "    chars1: [a, b, c]\n"
@@ -41,7 +42,7 @@ class AppTest {
                 + "  - setting3: true\n"
                 + "  + setting3: none\n"
                 + "}";
-        String result = Differ.genDiff(firstJsonFile, secondJsonFile);
+        String result = Differ.generate(filepath1, filepath2, formatName);
         assertThat(result).isEqualTo(expectedString);
 
     }
@@ -49,10 +50,8 @@ class AppTest {
     @Test
     void testGenDiffYAML() throws IOException {
 
-        Map<String, Object> map1 = Parser.getData(
-                "/home/wtffka/java-project-lvl2/src/test/resources/file1.yml");
-        Map<String, Object> map2 = Parser.getData(
-                "/home/wtffka/java-project-lvl2/src/test/resources/file2.yml");
+        String filepath1 = ("/home/wtffka/java-project-lvl2/src/test/resources/file1.yml");
+        String filepath2 = ("/home/wtffka/java-project-lvl2/src/test/resources/file2.yml");
 
         String formatName = "";
 
@@ -65,19 +64,19 @@ class AppTest {
                 + "  + verbose: true\n"
                 + "}";
 
-        String result = Differ.genDiff(map1, map2);
+        String result = Differ.generate(filepath1, filepath2, formatName);
         assertThat(result).isEqualTo(expectedString);
 
     }
 
     @Test
     void testPlainFormatJSON() throws IOException {
-        Map<String, Object> map1 = Parser.getData(
-                "/home/wtffka/java-project-lvl2/src/test/resources/file1.json");
-        Map<String, Object> map2 = Parser.getData(
-                "/home/wtffka/java-project-lvl2/src/test/resources/file2.json");
+        String filepath1 = ("/home/wtffka/java-project-lvl2/src/test/resources/file1.json");
+        String filepath2 = ("/home/wtffka/java-project-lvl2/src/test/resources/file2.json");
 
         String formatName = "plain";
+
+        String result = Differ.generate(filepath1, filepath2, formatName);
 
         String expectedString = "Property 'chars2' was updated. From [complex value] to false\n"
                 + "Property 'checked' was updated. From false to true\n"
@@ -93,49 +92,20 @@ class AppTest {
                 + "Property 'setting2' was updated. From 200 to 300\n"
                 + "Property 'setting3' was updated. From true to 'none'";
 
-        String result = Differ.genDiff(map1, map2, formatName);
         assertThat(result).isEqualTo(expectedString);
     }
 
     @Test
     void testOutputAsJSON() throws IOException {
-        Map<String, Object> map1 = Parser.getData(
-                "/home/wtffka/java-project-lvl2/src/test/resources/file1.json");
-        Map<String, Object> map2 = Parser.getData(
-                "/home/wtffka/java-project-lvl2/src/test/resources/file2.json");
+        String filepath1 = ("/home/wtffka/java-project-lvl2/src/test/resources/file1.json");
+        String filepath2 = ("/home/wtffka/java-project-lvl2/src/test/resources/file2.json");
 
         String formatName = "json";
 
-        String expectedString = "{\n"
-                + "\t\"chars1\":[\"a\",\"b\",\"c\"],\n"
-                + "\t\" - chars2\":[\"d\",\"e\",\"f\"],\n"
-                + "\t\" + chars2\":false,\n"
-                + "\t\" - checked\":false,\n"
-                + "\t\" + checked\":true,\n"
-                + "\t\" - default\":null,\n"
-                + "\t\" + default\":[\"value1\",\"value2\"],\n"
-                + "\t\" - id\":45,\n"
-                + "\t\" + id\":null,\n"
-                + "\t\" - key1\":\"value1\",\n"
-                + "\t\" + key2\":\"value2\",\n"
-                + "\t\"numbers1\":[1, 2, 3, 4],\n"
-                + "\t\" - numbers2\":[2, 3, 4, 5],\n"
-                + "\t\" + numbers2\":[22, 33, 44, 55],\n"
-                + "\t\" - numbers3\":[3, 4, 5],\n"
-                + "\t\" + numbers4\":[4, 5, 6],\n"
-                + "\t\" + obj1\":{\n"
-                + "\t\t\"nestedKey\":\"value\",\n"
-                + "\t\t\"isNested\":true\n"
-                + "\t},\n"
-                + "\t\" - setting1\":\"Some value\",\n"
-                + "\t\" + setting1\":\"Another value\",\n"
-                + "\t\" - setting2\":200,\n"
-                + "\t\" + setting2\":300,\n"
-                + "\t\" - setting3\":true,\n"
-                + "\t\" + setting3\":\"none\"\n"
-                + "}";
+        String expectedString = Files.readString(
+                Paths.get("/home/wtffka/java-project-lvl2/src/test/resources/jsonString"));
 
-        String result = Differ.genDiff(map1, map2, formatName);
+        String result = Differ.generate(filepath1, filepath2, formatName);
         assertThat(result).isEqualTo(expectedString);
     }
 }

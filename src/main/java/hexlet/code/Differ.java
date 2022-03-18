@@ -1,69 +1,55 @@
 package hexlet.code;
 
 import java.io.IOException;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.LinkedHashMap;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class Differ {
 
-    private static final String WHITESPACE = " ";
+    public static List<Tree> genDiff(Map<String, Object> map1, Map<String, Object> map2) {
+        Set<String> allKeys = new TreeSet<>();
 
-    public static String genDiff(Map<String, Object> map1, Map<String, Object> map2, String... formatName) {
-        List<Map.Entry<String, Object>> entries = new ArrayList<>();
-        for (Map.Entry s : map1.entrySet()) {
+        allKeys.addAll(map1.keySet());
+        allKeys.addAll(map2.keySet());
 
-            String negativeKey = WHITESPACE + "-" + WHITESPACE + s.getKey();
-            String positiveKey = WHITESPACE + "+" + WHITESPACE + s.getKey();
+        List<Tree> allDifferences = new ArrayList<>();
 
-            if (!map2.containsKey(s.getKey())) {
-                entries.add(new AbstractMap.SimpleEntry(negativeKey, s.getValue()));
-            } else if (s.getValue() != null && s.getValue().equals(map2.get(s.getKey()))) {
-                entries.add(new AbstractMap.SimpleEntry(s.getKey(), s.getValue()));
+        for (String key : allKeys) {
+            Object startingValue = map1.get(key);
+            Object finalValue = map2.get(key);
+
+            if (!map2.containsKey(key)) {
+                allDifferences.add(new Tree("removed", key, startingValue, finalValue));
+            } else if (!map1.containsKey(key)) {
+                allDifferences.add(new Tree("added", key, startingValue, finalValue));
+            } else if (Objects.equals(startingValue, finalValue)) {
+                allDifferences.add(new Tree("unchanged", key, startingValue, finalValue));
             } else {
-                entries.add(new AbstractMap.SimpleEntry(negativeKey, s.getValue()));
-                entries.add(new AbstractMap.SimpleEntry(positiveKey, map2.get(s.getKey())));
-            }
-        }
-        for (Map.Entry s : map2.entrySet()) {
-
-            String positiveKey = WHITESPACE + "+" + WHITESPACE + s.getKey();
-
-            if (!map1.containsKey(s.getKey())) {
-                entries.add(new AbstractMap.SimpleEntry(positiveKey, s.getValue()));
+                allDifferences.add(new Tree("changed", key, startingValue, finalValue));
             }
         }
 
-        entries.sort((a, b) -> {
-            if (a.getKey().contains(WHITESPACE)) {
-                if (b.getKey().contains(WHITESPACE)) {
-                    return a.getKey().split(WHITESPACE)[2].compareTo(b.getKey().split(WHITESPACE)[2]);
-                } else {
-                    return a.getKey().split(WHITESPACE)[2].compareTo(b.getKey());
-                }
-            } else {
-                if (b.getKey().contains(WHITESPACE)) {
-                    return a.getKey().compareTo(b.getKey().split(WHITESPACE)[2]);
-                } else {
-                    return a.getKey().compareTo(b.getKey());
-                }
-            }
-        });
-
-        Map<String, Object> sortedMap = new LinkedHashMap<>();
-        for (Map.Entry<String, Object> entry : entries) {
-            sortedMap.put(entry.getKey(), entry.getValue());
-        }
-        return Formatter.chooseFormat(sortedMap, formatName);
+        return allDifferences;
     }
 
-    public static String generate(String filepath1, String filepath2, String... formatName) throws IOException {
+    public static String generate(String filepath1, String filepath2, String formatName) throws IOException {
         Map<String, Object> firstFileToMap = Parser.getData(filepath1);
         Map<String, Object> secondFileToMap = Parser.getData(filepath2);
-        return Differ.genDiff(firstFileToMap, secondFileToMap, formatName);
+
+        List<Tree> diffTree = genDiff(firstFileToMap, secondFileToMap);
+
+        return Formatter.chooseFormat(diffTree, formatName);
+    }
+
+    public static String getStringFromFile(String filepath) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(filepath)));
     }
 
 }

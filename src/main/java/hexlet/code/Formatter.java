@@ -1,20 +1,21 @@
 package hexlet.code;
 
-import formatters.JSON;
-import formatters.Plain;
-import formatters.Stylish;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import hexlet.code.formatters.JSON;
+import hexlet.code.formatters.Plain;
+import hexlet.code.formatters.Stylish;
 
 import java.util.Arrays;
-import java.util.Map;
+import java.util.List;
 
 public class Formatter {
 
-    public static String chooseFormat(Map<String, Object> mapToFormat, String... formatName) {
+    public static String chooseFormat(List<Tree> diffTree, String... formatName) throws JsonProcessingException {
         if (Arrays.toString(formatName).contains("plain")) {
-            return Plain.formatter(mapToFormat);
+            return Plain.plainFormatter(diffTree);
         } else if (Arrays.toString(formatName).contains("json")) {
-            return JSON.formatter(mapToFormat);
+            return JSON.jsonFormatter(diffTree);
         }
-        return Stylish.formatter(mapToFormat);
+        return Stylish.formatter(diffTree);
     }
 }
