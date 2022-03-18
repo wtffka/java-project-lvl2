@@ -19,30 +19,15 @@ public class Plain {
             String changesType = pair.getTypeOfChange();
 
             if (changesType.equals("removed")) {
-                diffBuilder.append("Property '")
-                    .append(key)
-                    .append("' was removed")
-                    .append("\n");
+                diffBuilder.append("Property '" + key + "' was removed" + "\n");
             }
             if (changesType.equals("added")) {
-                diffBuilder.append("Property '")
-                    .append(key)
-                    .append("' was added with value: ")
-                    .append(value2)
-                    .append("\n");
+                diffBuilder.append("Property '" + key + "' was added with value: " + value2 + "\n");
             }
             if (changesType.equals("changed")) {
-                diffBuilder.append("Property '")
-                    .append(key)
-                    .append("' was updated. ")
-                    .append("From ")
-                    .append(value1)
-                    .append(" to ")
-                    .append(value2)
-                    .append("\n");
+                diffBuilder.append("Property '" + key + "' was updated. From " + value1 + " to " + value2 + "\n");
             }
         }
-
         return diffBuilder.toString().trim();
     }
 
@@ -50,7 +35,6 @@ public class Plain {
         if (value == null) {
             return null;
         }
-
         if (value instanceof String) {
             return "'" + value + "'";
         }
