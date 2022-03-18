@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Stylish {
 
-    private static final String WHITESPACE = " ";
-    private static final int AMOUNTOFWHITESPACESIFTYPEOFCHANGEISNOTHING = 4;
+    private static final String WSPACE = " ";
+    private static final int AMOUNT_OF_WSPACES_IF_NOTHING = 4;
 
     public static String formatter(List<Tree> diffTree) {
         StringBuilder diffBuilder = new StringBuilder("{\n");
@@ -18,55 +18,29 @@ public class Stylish {
             Object finalValue = pair.getFinalValue();
             String typeOfChange = pair.getTypeOfChange();
 
-            if (typeOfChange.equals("removed")) {
-                diffBuilder.append(WHITESPACE.repeat(2))
-                        .append("-")
-                        .append(WHITESPACE)
-                        .append(key)
-                        .append(":")
-                        .append(WHITESPACE)
-                        .append(startingValue)
-                        .append("\n");
-            }
-            if (typeOfChange.equals("added")) {
-                diffBuilder.append(WHITESPACE.repeat(2))
-                        .append("+")
-                        .append(WHITESPACE)
-                        .append(key)
-                        .append(":")
-                        .append(WHITESPACE)
-                        .append(finalValue)
-                        .append("\n");
-            }
-            if (typeOfChange.equals("unchanged")) {
-                diffBuilder.append(WHITESPACE.repeat(AMOUNTOFWHITESPACESIFTYPEOFCHANGEISNOTHING))
-                        .append(key)
-                        .append(":")
-                        .append(WHITESPACE)
-                        .append(startingValue)
-                        .append("\n");
-            }
-            if (typeOfChange.equals("changed")) {
-                diffBuilder.append(WHITESPACE.repeat(2))
-                        .append("-")
-                        .append(WHITESPACE)
-                        .append(key)
-                        .append(":")
-                        .append(WHITESPACE)
-                        .append(startingValue)
-                        .append("\n")
+            switch (typeOfChange) {
 
-                        .append(WHITESPACE.repeat(2))
-                        .append("+")
-                        .append(WHITESPACE)
-                        .append(key)
-                        .append(":")
-                        .append(WHITESPACE)
-                        .append(finalValue)
-                        .append("\n");
+                case "removed":
+                    diffBuilder.append(WSPACE.repeat(2) + "-" + WSPACE + key + ":" + WSPACE + startingValue + "\n");
+                    break;
+
+                case "added":
+                    diffBuilder.append(WSPACE.repeat(2) + "+" + WSPACE + key + ":" + WSPACE + finalValue + "\n");
+                    break;
+
+                case "unchanged":
+                    diffBuilder.append(WSPACE.repeat(AMOUNT_OF_WSPACES_IF_NOTHING) + key + ":" + WSPACE + startingValue
+                            + "\n");
+                    break;
+
+                case "changed":
+                    diffBuilder.append(WSPACE.repeat(2) + "-" + WSPACE + key + ":" + WSPACE + startingValue + "\n"
+                            + WSPACE.repeat(2) + "+" + WSPACE + key + ":" + WSPACE + finalValue + "\n");
+                    break;
+
+                default: break;
             }
         }
-
         diffBuilder.append("}");
         return diffBuilder.toString();
     }
