@@ -39,7 +39,7 @@ public class Differ {
         return allDifferences;
     }
 
-    public static String generate(String filepath1, String filepath2, String formatName) throws IOException {
+    public static String generate(String filepath1, String filepath2, String... formatName) throws IOException {
         Map<String, Object> firstFileToMap = Parser.getData(filepath1);
         Map<String, Object> secondFileToMap = Parser.getData(filepath2);
 
