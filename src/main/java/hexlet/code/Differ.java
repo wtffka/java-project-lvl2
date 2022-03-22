@@ -10,8 +10,8 @@ import java.util.Map;
 public class Differ {
 
     public static String generate(String filepath1, String filepath2, String formatName) throws IOException {
-        Map<String, Object> firstFileToMap = Parser.getData(getStringFromFile(filepath1), formatName);
-        Map<String, Object> secondFileToMap = Parser.getData(getStringFromFile(filepath2), formatName);
+        Map<String, Object> firstFileToMap = Parser.getData(getStringFromFile(filepath1), filepath1);
+        Map<String, Object> secondFileToMap = Parser.getData(getStringFromFile(filepath2), filepath2);
 
         List<Tree> diffTree = Tree.buildDiff(firstFileToMap, secondFileToMap);
 

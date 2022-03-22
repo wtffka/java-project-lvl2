@@ -11,9 +11,9 @@ import java.util.Map;
 
 public class Parser {
 
-    public static Map<String, Object> getData(String stringFromFile, String formatName) throws IOException {
+    public static Map<String, Object> getData(String stringFromFile, String filepath) throws IOException {
         ObjectMapper objectMapper;
-        if (formatName.equalsIgnoreCase("json")) {
+        if (filepath.contains(".json")) {
             objectMapper = new ObjectMapper();
         } else {
             objectMapper = new ObjectMapper(new YAMLFactory());
