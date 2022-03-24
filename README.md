@@ -1,7 +1,6 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/wtffka/java-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/wtffka/java-project-lvl2/actions)
 <a href="https://codeclimate.com/github/wtffka/java-project-lvl2/maintainability"><img src="https://api.codeclimate.com/v1/badges/0ae4e6fd4ea8b9117ed0/maintainability" /></a>
-[![Test Coverage](https://api.codeclimate.com/v1/badges/0ae4e6fd4ea8b9117ed0/test_coverage)](https://codeclimate.com/github/wtffka/java-project-lvl2/test_coverage)
 
 ASCIINEMA: Step 5
 
