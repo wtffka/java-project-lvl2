@@ -21,7 +21,6 @@ public class Tree {
         this.finalValue = fValue;
     }
 
-
     public final String getTypeOfChange() {
         return typeOfChange;
     }
@@ -47,12 +46,12 @@ public class Tree {
         List<Tree> allDifferences = new ArrayList<>();
 
         for (String key : allKeys) {
-            allDifferences.add(createListOfAllDifferences(map1, map2, key));
+            allDifferences.add(createDifference(map1, map2, key));
         }
         return allDifferences;
     }
 
-    private static Tree createListOfAllDifferences(Map<String, Object> m1, Map<String, Object> m2, String key) {
+    private static Tree createDifference(Map<String, Object> m1, Map<String, Object> m2, String key) {
 
         Object startingValue = m1.get(key);
         Object finalValue = m2.get(key);

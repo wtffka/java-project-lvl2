@@ -13,22 +13,27 @@ public class Plain {
         StringBuilder diffBuilder = new StringBuilder();
 
         for (Tree pair : treeDiff) {
-            String key = pair.getKey();
-            Object value1 = modifyIfStringOrArrayListOrMapValues(pair.getStartingValue());
-            Object value2 = modifyIfStringOrArrayListOrMapValues(pair.getFinalValue());
-            String changesType = pair.getTypeOfChange();
-
-            if (changesType.equals("removed")) {
-                diffBuilder.append("Property '" + key + "' was removed" + "\n");
-            }
-            if (changesType.equals("added")) {
-                diffBuilder.append("Property '" + key + "' was added with value: " + value2 + "\n");
-            }
-            if (changesType.equals("changed")) {
-                diffBuilder.append("Property '" + key + "' was updated. From " + value1 + " to " + value2 + "\n");
-            }
+            diffBuilder.append(createPlainString(pair));
         }
         return diffBuilder.toString().trim();
+    }
+
+    private static String createPlainString(Tree pair) {
+        String key = pair.getKey();
+        Object value1 = modifyIfStringOrArrayListOrMapValues(pair.getStartingValue());
+        Object value2 = modifyIfStringOrArrayListOrMapValues(pair.getFinalValue());
+        String changesType = pair.getTypeOfChange();
+
+        if (changesType.equals("removed")) {
+            return "Property '" + key + "' was removed" + "\n";
+        }
+        if (changesType.equals("added")) {
+            return "Property '" + key + "' was added with value: " + value2 + "\n";
+        }
+        if (changesType.equals("changed")) {
+            return "Property '" + key + "' was updated. From " + value1 + " to " + value2 + "\n";
+        }
+        return "";
     }
 
     private static Object modifyIfStringOrArrayListOrMapValues(Object value) {
