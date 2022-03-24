@@ -47,20 +47,24 @@ public class Tree {
         List<Tree> allDifferences = new ArrayList<>();
 
         for (String key : allKeys) {
-            Object startingValue = map1.get(key);
-            Object finalValue = map2.get(key);
-
-            if (!map2.containsKey(key)) {
-                allDifferences.add(new Tree("removed", key, startingValue, finalValue));
-            } else if (!map1.containsKey(key)) {
-                allDifferences.add(new Tree("added", key, startingValue, finalValue));
-            } else if (Objects.equals(startingValue, finalValue)) {
-                allDifferences.add(new Tree("unchanged", key, startingValue, finalValue));
-            } else {
-                allDifferences.add(new Tree("changed", key, startingValue, finalValue));
-            }
+            allDifferences.add(createListOfAllDifferences(map1, map2, key));
         }
-
         return allDifferences;
+    }
+
+    private static Tree createListOfAllDifferences(Map<String, Object> m1, Map<String, Object> m2, String key) {
+
+        Object startingValue = m1.get(key);
+        Object finalValue = m2.get(key);
+
+        if (!m2.containsKey(key)) {
+            return new  Tree("removed", key, startingValue, finalValue);
+        } else if (!m1.containsKey(key)) {
+            return new Tree("added", key, startingValue, finalValue);
+        } else if (Objects.equals(startingValue, finalValue)) {
+            return new Tree("unchanged", key, startingValue, finalValue);
+        } else {
+            return new Tree("changed", key, startingValue, finalValue);
+        }
     }
 }
